@@ -1,0 +1,49 @@
+{
+  "success": true,
+  "name": "Флюоресцентный бессмертный бургер",
+  "order": {
+    "ingredients": [
+      {
+        "_id": "61c0c5a71d1f82001bdaaa6d",
+        "name": "Флюоресцентная булка R2-D3",
+        "type": "bun",
+        "proteins": 44,
+        "fat": 26,
+        "carbohydrates": 85,
+        "calories": 643,
+        "price": 988,
+        "image": "https://code.s3.yandex.net/react/code/bun-01.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/bun-01-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/bun-01-large.png",
+        "__v": 0
+      },
+      {
+        "_id": "61c0c5a71d1f82001bdaaa6f",
+        "name": "Мясо бессмертных моллюсков Protostomia",
+        "type": "main",
+        "proteins": 433,
+        "fat": 244,
+        "carbohydrates": 33,
+        "calories": 420,
+        "price": 1337,
+        "image": "https://code.s3.yandex.net/react/code/meat-02.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/meat-02-large.png",
+        "__v": 0
+      }
+    ],
+    "_id": "69a2e21e984270001be59249",
+    "owner": {
+      "name": "QA_22296a9b",
+      "email": "qa_22296a9b501f4dd68fbf1324a7aef757@mail.com",
+      "createdAt": "2026-02-28T12:39:58.319Z",
+      "updatedAt": "2026-02-28T12:39:58.319Z"
+    },
+    "status": "done",
+    "name": "Флюоресцентный бессмертный бургер",
+    "createdAt": "2026-02-28T12:39:58.497Z",
+    "updatedAt": "2026-02-28T12:40:00.466Z",
+    "number": 355033,
+    "price": 2325
+  }
+}
