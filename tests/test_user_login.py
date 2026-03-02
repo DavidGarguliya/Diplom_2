@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import allure
 
-from api import StellarBurgersApi
+from api import AuthApiClient
+from data import LOGIN_INCORRECT_MESSAGE, WRONG_USER_PASSWORD
 from helpers import attach_json
 
 
@@ -22,25 +23,18 @@ class TestUserLogin:
     @allure.severity(allure.severity_level.BLOCKER)
     def test_login_existing_user_success(
         self,
-        api_client: StellarBurgersApi,
-        user_payload_factory,
-        created_users,
+        auth_client: AuthApiClient,
+        authorized_user,
     ) -> None:
         """Существующий пользователь должен успешно логиниться."""
-        with allure.step("Подготовить и зарегистрировать пользователя"):
-            payload = user_payload_factory()
-            attach_json("Payload регистрации", payload)
-            register_response = api_client.register_user(payload)  # Создаём пользователя для логина.
-            register_body = register_response.json()
-            attach_json("Ответ регистрации", register_body)
-            created_users(register_body.get("accessToken"))
-
         with allure.step("Подготовить payload для входа"):
+            payload = authorized_user["payload"]
+            register_response = authorized_user["response"]
             login_payload = {"email": payload["email"], "password": payload["password"]}
             attach_json("Payload логина", login_payload)
 
         with allure.step("Отправить запрос на вход"):
-            login_response = api_client.login_user(login_payload)
+            login_response = auth_client.login_user(login_payload)
 
         with allure.step("Проверить успешный логин и структуру ответа"):
             assert register_response.status_code == 200
@@ -59,7 +53,7 @@ class TestUserLogin:
     @allure.severity(allure.severity_level.CRITICAL)
     def test_login_with_wrong_credentials_fails(
         self,
-        api_client: StellarBurgersApi,
+        auth_client: AuthApiClient,
         user_payload_factory,
     ) -> None:
         """При неверных кредах должен вернуться 401."""
@@ -67,16 +61,16 @@ class TestUserLogin:
             payload = user_payload_factory()
             wrong_login_payload = {
                 "email": payload["email"],  # Используем уникальный несуществующий email.
-                "password": "wrong_password",
+                "password": WRONG_USER_PASSWORD,
             }
             attach_json("Невалидный payload логина", wrong_login_payload)
 
         with allure.step("Отправить запрос с неверными данными"):
-            response = api_client.login_user(wrong_login_payload)  # Логинимся с неверными данными.
+            response = auth_client.login_user(wrong_login_payload)  # Логинимся с неверными данными.
 
         with allure.step("Проверить код и сообщение ошибки"):
             assert response.status_code == 401
             body = response.json()
             attach_json("Ответ на невалидный логин", body)
             assert body["success"] is False
-            assert body["message"] == "email or password are incorrect"
+            assert body["message"] == LOGIN_INCORRECT_MESSAGE

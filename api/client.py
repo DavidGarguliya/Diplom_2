@@ -1,4 +1,4 @@
-"""Клиент для API Stellar Burgers."""
+"""Базовый HTTP-клиент для API Stellar Burgers."""
 
 from __future__ import annotations
 
@@ -10,8 +10,8 @@ import requests
 from helpers.allure import attach_request_details, attach_response_details
 
 
-class StellarBurgersApi:
-    """Обёртка над HTTP-запросами к Stellar Burgers API."""
+class BaseApiClient:
+    """Базовый клиент с общей логикой HTTP-запросов."""
 
     def __init__(self, base_url: str, timeout: int = 10) -> None:
         self.base_url = base_url.rstrip("/")
@@ -47,58 +47,3 @@ class StellarBurgersApi:
         )
         attach_response_details(response)
         return response
-
-    @allure.step("API: регистрация пользователя")
-    def register_user(self, payload: dict) -> requests.Response:
-        """Отправляет запрос на регистрацию пользователя."""
-        return self._request(method="POST", path="/auth/register", payload=payload)
-
-    @allure.step("API: логин пользователя")
-    def login_user(self, payload: dict) -> requests.Response:
-        """Отправляет запрос на логин пользователя."""
-        return self._request(method="POST", path="/auth/login", payload=payload)
-
-    @allure.step("API: удаление пользователя")
-    def delete_user(self, access_token: str) -> requests.Response:
-        """Удаляет пользователя по токену авторизации."""
-        return self._request(
-            method="DELETE",
-            path="/auth/user",
-            headers={"Authorization": access_token},
-        )
-
-    @allure.step("API: получение списка ингредиентов")
-    def get_ingredients(self) -> requests.Response:
-        """Получает список доступных ингредиентов."""
-        return self._request(method="GET", path="/ingredients")
-
-    @allure.step("API: создание заказа")
-    def create_order(
-        self,
-        ingredients: list[str] | None = None,
-        access_token: str | None = None,
-    ) -> requests.Response:
-        """Создаёт заказ с ингредиентами (или без них)."""
-        payload = {}
-        if ingredients is not None:
-            payload["ingredients"] = ingredients
-
-        headers = {}
-        if access_token:
-            headers["Authorization"] = access_token
-
-        return self._request(
-            method="POST",
-            path="/orders",
-            payload=payload,
-            headers=headers,
-        )
-
-    @allure.step("API: получение заказов пользователя")
-    def get_user_orders(self, access_token: str) -> requests.Response:
-        """Получает историю заказов текущего пользователя."""
-        return self._request(
-            method="GET",
-            path="/orders",
-            headers={"Authorization": access_token},
-        )
