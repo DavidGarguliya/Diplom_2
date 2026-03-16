@@ -1,0 +1,9 @@
+{
+  "success": true,
+  "accessToken": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YTJlMjI4OTg0MjcwMDAxYmU1OTI0ZSIsImlhdCI6MTc3MjI4MjQwOCwiZXhwIjoxNzcyMjgzNjA4fQ.mKpBAXERb9gMeo5lKUdQ-7U4I-ASXPl6nVRLL9pJbOg",
+  "refreshToken": "5a08d5be23668658782d264d171057acd6c415d2456bb7b425990ebdcd3255220cd0eb820eb3d659",
+  "user": {
+    "email": "qa_52a33f7ef6b84070adae0041ea222289@mail.com",
+    "name": "QA_52a33f7e"
+  }
+}

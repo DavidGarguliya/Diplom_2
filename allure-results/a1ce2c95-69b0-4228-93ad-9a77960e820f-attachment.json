@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "orders": [
+    {
+      "_id": "69a2e21e984270001be59249",
+      "ingredients": [
+        "61c0c5a71d1f82001bdaaa6d",
+        "61c0c5a71d1f82001bdaaa6f"
+      ],
+      "status": "done",
+      "name": "Флюоресцентный бессмертный бургер",
+      "createdAt": "2026-02-28T12:39:58.497Z",
+      "updatedAt": "2026-02-28T12:40:00.466Z",
+      "number": 355033
+    }
+  ],
+  "total": 355033,
+  "totalToday": 260
+}
